@@ -80,15 +80,15 @@ namespace SpecFlowProject_QA_MARS.StepDefinitions
 
         //Delete
 
-        [When(@"I delete an excisting '([^']*)'")]
-        public void WhenIDeleteAnExcisting(string LanguageKnown)
+        [When(@"I delete an existing '([^']*)'")]
+        public void WhenIDeleteAnExisting(string LanguageKnown)
         {
             LangObj.Delete_Language(LanguageKnown);
 
         }
 
-        [Then(@"the excisting '([^']*)' should be deleted")]
-        public void ThenTheExcistingShouldBeDeleted(string LanguageKnown)
+        [Then(@"the existing '([^']*)' should be deleted")]
+        public void ThenTheExistingShouldBeDeleted(string LanguageKnown)
         {
             LangObj.CheckDeletedLang(LanguageKnown);
             string notification = LangObj.CheckDeletedLang(LanguageKnown);

@@ -1,6 +1,6 @@
 Feature: 2_As a seller I would like The languages that I speak be displayed on my Profile page 
 
-#Adding and Duplicatiobn
+#Adding and Duplication
 
 Scenario Outline: 1- Add new Languages on Profile
 
@@ -19,7 +19,7 @@ Examples:
 
 #Updating
 
-Scenario Outline: 2- Update/ Edit the excisting language
+Scenario Outline: 2- Update/ Edit the existing language
 
 Given I navigate to Language 
 When I edit the second '<LanguageKnown>' with new '<MyLevel>'
@@ -32,11 +32,11 @@ Examples:
 
 #Deleting
 
-Scenario: 3- Delete an excisting Language
+Scenario: 3- Delete an existing Language
 
 Given I navigate to Language
-When I delete an excisting '<LanguageKnown>'
-Then the excisting '<LanguageKnown>' should be deleted
+When I delete an existing '<LanguageKnown>'
+Then the existing '<LanguageKnown>' should be deleted
 
 Examples: 
 | LanguageKnown |

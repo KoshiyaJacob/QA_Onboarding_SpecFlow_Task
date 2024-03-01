@@ -111,15 +111,15 @@ testRunner.Then(string.Format("The new \'{0}\' should display", languageKnown), 
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("2- Update/ Edit the excisting language")]
+        [NUnit.Framework.DescriptionAttribute("2- Update/ Edit the existing language")]
         [NUnit.Framework.TestCaseAttribute("German", "Conversational", null)]
-        public void _2_UpdateEditTheExcistingLanguage(string languageKnown, string myLevel, string[] exampleTags)
+        public void _2_UpdateEditTheExistingLanguage(string languageKnown, string myLevel, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("LanguageKnown", languageKnown);
             argumentsOfScenario.Add("MyLevel", myLevel);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("2- Update/ Edit the excisting language", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("2- Update/ Edit the existing language", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 22
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -144,15 +144,15 @@ testRunner.Then(string.Format("The \'{0}\' should be updated", languageKnown), (
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("3- Delete an excisting Language")]
+        [NUnit.Framework.DescriptionAttribute("3- Delete an existing Language")]
         [NUnit.Framework.TestCaseAttribute("German", null)]
         [NUnit.Framework.TestCaseAttribute("English", null)]
-        public void _3_DeleteAnExcistingLanguage(string languageKnown, string[] exampleTags)
+        public void _3_DeleteAnExistingLanguage(string languageKnown, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("LanguageKnown", languageKnown);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("3- Delete an excisting Language", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("3- Delete an existing Language", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 35
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -167,10 +167,10 @@ this.ScenarioInitialize(scenarioInfo);
 testRunner.Given("I navigate to Language", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 38
-testRunner.When(string.Format("I delete an excisting \'{0}\'", languageKnown), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+testRunner.When(string.Format("I delete an existing \'{0}\'", languageKnown), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 39
-testRunner.Then(string.Format("the excisting \'{0}\' should be deleted", languageKnown), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+testRunner.Then(string.Format("the existing \'{0}\' should be deleted", languageKnown), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
