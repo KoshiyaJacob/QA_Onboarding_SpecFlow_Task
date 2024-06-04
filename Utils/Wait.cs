@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
-using OpenQA.Selenium;
 
 namespace SpecFlowProject_QA_MARS.Utils
 {
@@ -71,5 +66,5 @@ namespace SpecFlowProject_QA_MARS.Utils
         }
     }
 }
-    
+
 

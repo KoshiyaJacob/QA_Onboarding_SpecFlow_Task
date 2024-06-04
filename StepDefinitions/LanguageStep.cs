@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyModel;
+﻿
 using NUnit.Framework;
 using OpenQA.Selenium;
 using SpecFlowProject_QA_MARS.Pages;
@@ -13,86 +8,194 @@ namespace SpecFlowProject_QA_MARS.StepDefinitions
 {
 
     [Binding]
-    public class LanguageLevel : Start
+    public class LanguageStep : Driver
     {
-        Languages LangObj = new Languages();
+        SigninPage signInPageObj = new SigninPage();
+        Languages Lang_Obj = new Languages();
 
-
-        [Given(@"I navigate to Language")]
-        public void GivenINavigateToLanguage()
+        [Given(@"User logs into Mars application")]
+        public void GivenUserLogsIntoMarsApplication()
         {
-            LangObj.Click_Language_Tab();
-            
-
+            signInPageObj.SignInToApplication();
+            CleanupProfilePage();
         }
 
-        [When(@"I add '([^']*)' my level '([^']*)' in profile")]
-        public void WhenIAddMyLevelInProfile(string LanguageKnown, string myLevel)
+        [When(@"User adds '([^']*)' language with '([^']*)' proficiency level into the known languages list")]
+        public void WhenUserAddsLanguageWithProficiencyLevelIntoTheKnownLanguagesList(string language, string proficiencyLevel)
         {
-            LangObj.Click_AddNew_Btn();
-            LangObj.Language_Data(LanguageKnown, myLevel);
-            LangObj.Add_New_Lang();
+            Lang_Obj.AddLanguageWithProficiencyLevel(language, proficiencyLevel);
         }
 
-        //Adding
-
-        [Then(@"The new '([^']*)' should display")]
-        public void ThenTheNewShouldDisplay(string LanguageKnown)
+        [Then(@"The '([^']*)' language with '([^']*)' proficiency level should appear in the known languages list")]
+        public void ThenTheLanguageWithProficiencyLevelShouldAppearInTheKnownLanguagesList(string language, string proficiencyLevel)
         {
-            
-            string notification = LangObj.CheckNewLanguageAdded(LanguageKnown);
-            String Message = LanguageKnown + " has been added to your languages";
-            String DuplicateMess = "Duplicated data";
-
-            if (notification == (LanguageKnown + " has been added to your languages"))
-            { Assert.That(notification, Is.EqualTo(Message), notification);
-            }              
-            
-            else if (notification == "Duplicated data")
-            { 
-                Assert.That(notification, Is.EqualTo(DuplicateMess), notification);
-                Console.WriteLine(LanguageKnown +" " + notification);
-
+            if (Lang_Obj.VerifyTheAddedLanguage(language, proficiencyLevel))
+            {
+                string actualLanguage = Languages.LastAddedLanguageAndLevel.Text;
+                string expectedLanguage = language + " has been added to your languages";
+                if (string.Equals(actualLanguage, expectedLanguage, StringComparison.OrdinalIgnoreCase))
+                {
+                    Lang_Obj.DeleteLanguage(language);
+                    Assert.Pass(language + " has been added successfully");
+                }
             }
-                
-
-     
-                  
+            else
+            {
+                Assert.Fail(language + " has not been added successfully");
+            }
         }
 
-        // Edit
-
-
-        [When(@"I edit the second '([^']*)' with new '([^']*)'")]
-        public void WhenIEditTheSecondWithNew(string LanguageKnown, string MyLevel)
+        [When(@"User edits the '([^']*)' language with '([^']*)' proficiency level from the known languages list")]
+        public void WhenUserEditsTheLanguageWithProficiencyLevelFromTheKnownLanguagesList(string language, string proficiencyLevel)
         {
-            LangObj.Edit_Language(LanguageKnown, MyLevel);
+            Lang_Obj.EditLanguageProficiencyLevel(language, proficiencyLevel);
         }
 
-        [Then(@"The '([^']*)' should be updated")]
-        public void ThenTheAndShouldBeUpdated(string LanguageKnown)
+        [Then(@"The proficiency level for '([^']*)' language should be updated to '([^']*)'")]
+        public void ThenTheProficiencyLevelForLanguageShouldBeUpdatedTo(string language, string proficiencyLevel)
         {
-            LangObj.CheckUpdatedLang(LanguageKnown);
-            string notification = LangObj.CheckUpdatedLang(LanguageKnown);
-            string Message = LanguageKnown + " has been updated to your languages";
-            Assert.That(notification, Is.EqualTo(Message), notification);
+            if (Lang_Obj.VerifyUpdatedLanguageProficiencyLevel(language, proficiencyLevel))
+            {
+                Thread.Sleep(2000);
+                string actualLanguageAndProficiency = Languages.UpdatedLanguageAndLevel.Text;
+                string expectedLanguageAndProficiency = language + " has been updated to your languages";
+                if (string.Equals(actualLanguageAndProficiency, expectedLanguageAndProficiency, StringComparison.OrdinalIgnoreCase))
+                {
+                    Lang_Obj.DeleteLanguage(language);
+                    Assert.Pass(language + " has been updated to your languages");
+                }
+            }
+            else
+            {
+                Assert.Fail(language + " has not been updated to your languages");
+            }
         }
 
-        //Delete
-
-        [When(@"I delete an existing '([^']*)'")]
-        public void WhenIDeleteAnExisting(string LanguageKnown)
+        [When(@"The User deletes the language '([^']*)'")]
+        public void WhenTheUserDeletesTheLanguage(string language)
         {
-            LangObj.Delete_Language(LanguageKnown);
-
+            Lang_Obj.DeleteLanguage(language);
         }
 
-        [Then(@"the existing '([^']*)' should be deleted")]
-        public void ThenTheExistingShouldBeDeleted(string LanguageKnown)
+        [Then(@"The language '([^']*)' should not be visible on the profile page")]
+        public void ThenTheLanguageShouldNotBeVisibleOnTheProfilePage(string language)
         {
-            LangObj.CheckDeletedLang(LanguageKnown);
-            string notification = LangObj.CheckDeletedLang(LanguageKnown);
-            Assert.That(notification == (LanguageKnown + " has been deleted from your languages"), notification);
+            if (Lang_Obj.VerifyTheLanguageIsDeleted(language))
+            {
+                Assert.Pass(language + " has been deleted successfully");
+            }
+            else
+            {
+                Assert.Fail(language + " has not been deleted successfully");
+            }
+        }
+
+        [When(@"The user adds language '([^']*)' with '([^']*)' proficiency level that is already displayed in their known languages list")]
+        public void WhenTheUserAddsLanguageWithProficiencyLevelThatIsAlreadyDisplayedInTheirKnownLanguagesList(string language, string proficiencyLevel)
+        {
+            Lang_Obj.DuplicatedLanguage(language, proficiencyLevel);
+        }
+
+        [Then(@"The language '([^']*)' should not be duplicated in the known languages list")]
+        public void ThenTheLanguageShouldNotBeDuplicatedInTheKnownLanguagesList(string language)
+        {
+            if (Lang_Obj.VerifyLanguageNotDuplicated(language))
+            {
+                Lang_Obj.DeleteLanguage(language);
+                Assert.Pass(language + " language " + " is already exist in your language list.");
+            }
+            else
+            {
+                Assert.Fail(language + " language " + " has been added to your list");
+            }
+        }
+
+        [Then(@"The system should reject showcasing an empty '([^']*)' and display an error message")]
+        public void ThenTheSystemShouldRejectShowcasingAnEmptyAndDisplayAnErrorMessage(string language)
+        {
+            if (Lang_Obj.EmptyStringDisplayAnErrorMessage(language))
+            {
+                Assert.Pass(language + "cannot be created with an empty value.");
+            }
+            else
+            {
+                Assert.Fail(language + "has been created with an empty value.");
+            }
+        }
+
+        [When(@"The user adds '([^']*)' language with '([^']*)' proficiency level with the same name but different cases")]
+        public void WhenTheUserAddsLanguageWithProficiencyLevelWithTheSameNameButDifferentCases(string language, string proficiencyLevel)
+        {
+            Lang_Obj.LanguageWithSameNameButdifferentCases(language, proficiencyLevel);
+        }
+
+        [Then(@"The system should accept the same language '([^']*)' with '([^']*)' proficiency level with different case")]
+        public void ThenTheSystemShouldAcceptTheSameLanguageWithProficiencyLevelWithDifferentCase(string language, string proficiencyLevel)
+        {
+            Lang_Obj.VerifyTheAddedLanguage(language, proficiencyLevel);
+            Lang_Obj.DeleteLanguage(language);
+            Lang_Obj.DeleteLanguage(language);
+        }
+
+        [When(@"The user adds '([^']*)' language with '([^']*)' proficiency level with language field containing only numbers")]
+        public void WhenTheUserAddsLanguageWithProficiencyLevelWithLanguageFieldContainingOnlyNumbers(string language, string proficiencyLevel)
+        {
+            Lang_Obj.LanguageFieldContainsNumber(language, proficiencyLevel);
+        }
+
+        [When(@"The user adds '([^']*)' language with '([^']*)' proficiency level with the language field containing special characters")]
+        public void WhenTheUserAddsLanguageWithProficiencyLevelWithTheLanguageFieldContainingSpecialCharacters(string language, string proficiencyLevel)
+        {
+            Lang_Obj.LanguageFieldContainsSpecialCharacter(language, proficiencyLevel);
+        }
+
+        [When(@"The user adds '([^']*)' language with '([^']*)' but refrains from selecting any proficiency level and leaves it at the default")]
+        public void WhenTheUserAddsLanguageWithButRefrainsFromSelectingAnyProficiencyLevelAndLeavesItAtTheDefault(string language, string proficiencyLevel)
+        {
+            Lang_Obj.InvalidProficiencyLevel(language, proficiencyLevel);
+        }
+
+        private void CleanupProfilePage()
+        {
+            // Find all tables containing languages
+            var tables = driver.FindElements(By.TagName("table"));
+
+            foreach (var table in tables)
+            {
+                // Check if the table has a tbody element
+                try
+                {
+                    var tbody = table.FindElement(By.TagName("tbody"));
+
+                    if (tbody != null)
+                    {
+                        // Find all rows (tr elements) within the tbody
+                        var rows = tbody.FindElements(By.TagName("tr"));
+
+                        foreach (var row in rows)
+                        {
+                            // Find the delete button for each language
+                            var deleteButton = driver.FindElement(By.CssSelector(".remove.icon"));
+
+                            // Click the delete button
+                            deleteButton.Click();
+                            Thread.Sleep(2000);
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("No languages found to clean up in this table.");
+                    }
+                }
+                catch (NoSuchElementException)
+                {
+                    Console.WriteLine("No tbody found in this table.");
+                    break;
+                }
+            }
         }
     }
 }
+
+
+

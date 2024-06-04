@@ -1,90 +1,202 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NUnit.Framework;
+﻿using NUnit.Framework;
+using OpenQA.Selenium;
 using SpecFlowProject_QA_MARS.Pages;
+using SpecFlowProject_QA_MARS.Utils;
 
 namespace SpecFlowProject_QA_MARS.StepDefinition
 {
     [Binding]
-    public class SkillsStep 
+    public class SkillsStep : Driver
     {
+
 
         Skills Skill_Obj = new Skills();
 
-//Add and duplication
 
-        [Given(@"I logged in and click Skill tab")]
-        public void GivenILoggedInAndClickSkillTab()
+
+
+        [When(@"User clicks on the skill feature")]
+        public void WhenUserClicksOnTheSkillFeature()
         {
-            Skill_Obj.AddSkill();
-            
+            Skill_Obj.ClickOnTheSkillFeature();
+            CleanupProfilePageForSkills();
         }
 
-        [When(@"I add '([^']*)' mylevel '([^']*)'")]
-        public void WhenIAddMylevel(string SkillKnown, string SkillLevel)
+        [When(@"The user adds '([^']*)' skill with '([^']*)' experience level into the known skills list")]
+        public void WhenTheUserAddsSkillWithExperienceLevelIntoTheKnownSkillsList(string skill, string experienceLevel)
         {
-            Skill_Obj.Skill_Level(SkillKnown, SkillLevel);
-            
+            Skill_Obj.AddSkillsWithExperienceLevel(skill, experienceLevel);
         }
 
-        [Then(@"The '([^']*)'  should display")]
-        public void ThenTheLevelShouldDisplay(string SkillKnown)
+        [Then(@"The '([^']*)' skill with '([^']*)' experience level should appear in the known skills list")]
+        public void ThenTheSkillWithExperienceLevelShouldAppearInTheKnownSkillsList(string skill, string experienceLevel)
         {
-
-            string notification = Skill_Obj.CheckSkillAdded(SkillKnown);
-
-            string Message = SkillKnown + " has been added to your skills";
-            string Duplicatedpopup = "Duplicated data";
-
-            if (notification == (SkillKnown + "has been added to your skills"))
+            if (Skill_Obj.VerifyTheAddedSkill(skill, experienceLevel))
             {
-                Assert.That(notification, Is.EqualTo(Message), notification);
+                string actualSkillAndExperience = Skills.LastAddedSkillAndLevel.Text;
+                string expectedSkillAndExperience = skill + " has been added to your skills";
+                if (string.Equals(actualSkillAndExperience, expectedSkillAndExperience, StringComparison.OrdinalIgnoreCase))
+                {
+                    Skill_Obj.DeleteSkill(skill);
+                    Assert.Pass(skill + " has been added to your skills");
+                }
             }
-
-            else if (notification == "Duplicated data")
+            else
             {
-                Console.WriteLine(SkillKnown + " " + notification);
-                Assert.That(notification, Is.EqualTo(Duplicatedpopup), notification);
-                
+                Assert.Fail(skill + " has not been added to your skills");
             }
         }
 
- //Edit
-
-        [When(@"I edit last data into '([^']*)' level '([^']*)'")]
-        public void WhenIEditLastDataIntoLevel(string SkillKnown, string SkillLevel)
-        { 
-            Skill_Obj.edit_Language(SkillKnown, SkillLevel);
-        
+        [When(@"The user edits the '([^']*)' skill with '([^']*)' experience level from the known skills list")]
+        public void WhenTheUserEditsTheSkillWithExperienceLevelFromTheKnownSkillsList(string skill, string experienceLevel)
+        {
+            Skill_Obj.EditSkillExperienceLevel(skill, experienceLevel);
         }
 
-        [Then(@"The '([^']*)' should edited successfully")]
-        public void ThenTheShouldEditedSuccessfully(string SkillKnown)
+        [Then(@"The experience level for '([^']*)' skill should be updated to '([^']*)'")]
+        public void ThenTheExperienceLevelForSkillShouldBeUpdatedTo(string skill, string experienceLevel)
         {
-            Skill_Obj.check_Skill_Updated(SkillKnown);
-            string notification = Skill_Obj.check_Skill_Updated(SkillKnown);
-            string Message = SkillKnown + " has been updated to your skills";
-            Assert.That(notification, Is.EqualTo(Message),notification);
+            if (Skill_Obj.VerifytheUpdatedSkillExperienceLevel(skill, experienceLevel))
+            {
+                Thread.Sleep(2000);
+                string actualSkillAndExperience = Skills.UpdatedSkillAndLevel.Text;
+                string expectedSkillAndExperience = skill + " has been updated to your skills";
+                if (string.Equals(actualSkillAndExperience, expectedSkillAndExperience, StringComparison.OrdinalIgnoreCase))
+                {
+                    Skill_Obj.DeleteSkill(skill);
+                    Assert.Pass(skill + " has been updated to your skills");
+                }
+            }
+            else
+            {
+                Assert.Fail(skill + " has not been updated");
+            }
         }
 
-//Delete
-
-        [When(@"I delete '([^']*)'")]
-        public void WhenIDelete(string SkillKnown)
+        [When(@"The User deletes the skill '([^']*)'")]
+        public void WhenTheUserDeletesTheSkill(string skill)
         {
-            Skill_Obj.Delete_Skill(SkillKnown);
+            Skill_Obj.DeleteSkill(skill);
         }
 
-        [Then(@"The '([^']*)' deleted successfully")]
-        public void ThenTheDeletedSuccessfully(string SkillKnown)
+        [Then(@"The skill '([^']*)' should not be visible on the profile page")]
+        public void ThenTheSkillShouldNotBeVisibleOnTheProfilePage(string skill)
         {
-            Skill_Obj.CheckDeletedSkill(SkillKnown);
-            string notification = Skill_Obj.CheckDeletedSkill(SkillKnown);
-            Assert.That(notification == (SkillKnown+" has been deleted"), notification);
+            if (Skill_Obj.VerifyTheSkillIsDeleted(skill))
+            {
+                Assert.Pass(skill + " has been deleted");
+            }
+            else
+            {
+                Assert.Fail(skill + " has not been deleted");
+            }
+        }
 
+        [When(@"The user adds skill '([^']*)' with '([^']*)' experience level that is already displayed in their known skills list")]
+        public void WhenTheUserAddsSkillWithExperienceLevelThatIsAlreadyDisplayedInTheirKnownSkillsList(string skill, string experienceLevel)
+        {
+            Skill_Obj.DuplicatedSkill(skill, experienceLevel);
+        }
+
+        [Then(@"The skill '([^']*)' should not be duplicated in the known skills list")]
+        public void ThenTheSkillShouldNotBeDuplicatedInTheKnownSkillsList(string skill)
+        {
+            if (Skill_Obj.VerifySkillNotDuplicated(skill))
+            {
+                Skill_Obj.DeleteSkill(skill);
+                Assert.Pass("This skill is already exist in your skill list.");
+            }
+            else
+            {
+                Assert.Fail("This skill has been added to your list.");
+            }
+        }
+
+        [When(@"The user adds '([^']*)' skill with '([^']*)' experience level with the same name but different cases")]
+        public void WhenTheUserAddsSkillWithExperienceLevelWithTheSameNameButDifferentCases(string skill, string experienceLevel)
+        {
+            Skill_Obj.SkillWithSameNameButdifferentCases(skill, experienceLevel);
+        }
+
+        [Then(@"The system should accept the same skill '([^']*)' with '([^']*)' experience level with different case")]
+        public void ThenTheSystemShouldAcceptTheSameSkillWithExperienceLevelWithDifferentCase(string skill, string experienceLevel)
+        {
+            Skill_Obj.AddSkillsWithExperienceLevel(skill, experienceLevel);
+            Skill_Obj.DeleteSkill(skill);
+            Skill_Obj.DeleteSkill(skill);
+        }
+
+        [Then(@"The system should reject showcasing an empty '([^']*)' field and display an error message")]
+        public void ThenTheSystemShouldRejectShowcasingAnEmptyFieldAndDisplayAnErrorMessage(string skill)
+        {
+            if (Skill_Obj.EmptyStringDisplayAnErrorMessageInTheSkill(skill))
+            {
+                Assert.Pass("Skill cannot be created with an empty value.");
+            }
+            else
+            {
+                Assert.Fail("Skill has been created with an empty value.");
+            }
+        }
+
+        [When(@"The user adds '([^']*)' skill with '([^']*)' experience level  with the skill field containing only numbers")]
+        public void WhenTheUserAddsSkillWithExperienceLevelWithTheSkillFieldContainingOnlyNumbers(string skill, string experienceLevel)
+        {
+            Skill_Obj.SkillFieldWithNumbers(skill, experienceLevel);
+        }
+
+        [When(@"The user adds '([^']*)' skill with '([^']*)' experience level with the skill field containing special characters")]
+        public void WhenTheUserAddsSkillWithExperienceLevelWithTheSkillFieldContainingSpecialCharacters(string skill, string experienceLevel)
+        {
+            Skill_Obj.SkillFieldWithSpecialCharacters(skill, experienceLevel);
+        }
+
+        [When(@"The user adds '([^']*)' skill with '([^']*)' but refrains from selecting any experience level and leaves it at the default")]
+        public void WhenTheUserAddsSkillWithButRefrainsFromSelectingAnyExperienceLevelAndLeavesItAtTheDefault(string skill, string experienceLevel)
+        {
+            Skill_Obj.InValidExperienceLevel(skill, experienceLevel);
+        }
+
+        private void CleanupProfilePageForSkills()
+        {
+            //Find all tables containing skills
+            var tables = driver.FindElements(By.XPath("/html/body/div[1]/div/section[2]/div/div/div/div[3]/form/div[3]/div/div[2]/div/table"));
+
+            foreach (var table in tables)
+            {
+                //Check if the table has a tbody element
+                try
+                {
+                    var tbody = table.FindElement(By.TagName("tbody"));
+
+                    if (tbody != null)
+                    {
+                        //Find all rows(tr elements) within the tbody
+                        var rows = tbody.FindElements(By.TagName("tr"));
+
+                        foreach (var row in rows)
+                        {
+                            //Find the delete button for each skills
+                            var deleteButton = driver.FindElement(By.CssSelector(".remove.icon"));
+
+                            //Click the delete button
+                            deleteButton.Click();
+                            Thread.Sleep(2000);
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("No skills found to clean up in this table.");
+                    }
+                }
+                catch (NoSuchElementException)
+                {
+                    Console.WriteLine("No tbody found in this table.");
+                    break;
+                }
+            }
         }
     }
 }
+
+

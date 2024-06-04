@@ -20,9 +20,8 @@ namespace SpecFlowProject_QA_MARS.Feature
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("2_As a seller I would like The languages that I speak be displayed on my Profile " +
-        "page")]
-    public partial class _2_AsASellerIWouldLikeTheLanguagesThatISpeakBeDisplayedOnMyProfilePageFeature
+    [NUnit.Framework.DescriptionAttribute("This test suite runs my profile language related test scenarios")]
+    public partial class ThisTestSuiteRunsMyProfileLanguageRelatedTestScenariosFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
@@ -36,8 +35,7 @@ namespace SpecFlowProject_QA_MARS.Feature
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Feature", "2_As a seller I would like The languages that I speak be displayed on my Profile " +
-                    "page", null, ProgrammingLanguage.CSharp, featureTags);
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Feature", "This test suite runs my profile language related test scenarios", null, ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -76,18 +74,16 @@ namespace SpecFlowProject_QA_MARS.Feature
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("1- Add new Languages on Profile")]
-        [NUnit.Framework.TestCaseAttribute("English", "Fluent", null)]
-        [NUnit.Framework.TestCaseAttribute("Spanish", "Conversational", null)]
+        [NUnit.Framework.DescriptionAttribute("1. Verify user is able to add known languages with proficiency level")]
         [NUnit.Framework.TestCaseAttribute("English", "Basic", null)]
-        public void _1_AddNewLanguagesOnProfile(string languageKnown, string myLevel, string[] exampleTags)
+        public void _1_VerifyUserIsAbleToAddKnownLanguagesWithProficiencyLevel(string language, string proficiencyLevel, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            argumentsOfScenario.Add("LanguageKnown", languageKnown);
-            argumentsOfScenario.Add("MyLevel", myLevel);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("1- Add new Languages on Profile", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 5
+            argumentsOfScenario.Add("language", language);
+            argumentsOfScenario.Add("proficiency level", proficiencyLevel);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("1. Verify user is able to add known languages with proficiency level", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 3
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -97,29 +93,70 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 7
-testRunner.Given("I navigate to Language", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 4
+ testRunner.Given("User logs into Mars application", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 8
-testRunner.When(string.Format("I add \'{0}\' my level \'{1}\' in profile", languageKnown, myLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 5
+ testRunner.When(string.Format("User adds \'{0}\' language with \'{1}\' proficiency level into the known languages li" +
+                            "st", language, proficiencyLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 9
-testRunner.Then(string.Format("The new \'{0}\' should display", languageKnown), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 6
+ testRunner.Then(string.Format("The \'{0}\' language with \'{1}\' proficiency level should appear in the known langua" +
+                            "ges list", language, proficiencyLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("2- Update/ Edit the existing language")]
-        [NUnit.Framework.TestCaseAttribute("German", "Conversational", null)]
-        public void _2_UpdateEditTheExistingLanguage(string languageKnown, string myLevel, string[] exampleTags)
+        [NUnit.Framework.DescriptionAttribute("2. Verify user is able to edit a proficiency level from the known language")]
+        [NUnit.Framework.TestCaseAttribute("English", "Basic", "Fluent", null)]
+        public void _2_VerifyUserIsAbleToEditAProficiencyLevelFromTheKnownLanguage(string language, string proficiencyLevel, string newProficiencyLevel, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            argumentsOfScenario.Add("LanguageKnown", languageKnown);
-            argumentsOfScenario.Add("MyLevel", myLevel);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("2- Update/ Edit the existing language", null, tagsOfScenario, argumentsOfScenario, featureTags);
+            argumentsOfScenario.Add("language", language);
+            argumentsOfScenario.Add("proficiency level", proficiencyLevel);
+            argumentsOfScenario.Add("new proficiency level", newProficiencyLevel);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("2. Verify user is able to edit a proficiency level from the known language", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 12
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 13
+ testRunner.Given("User logs into Mars application", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 14
+ testRunner.When(string.Format("User adds \'{0}\' language with \'{1}\' proficiency level into the known languages li" +
+                            "st", language, proficiencyLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 15
+ testRunner.And(string.Format("User edits the \'{0}\' language with \'{1}\' proficiency level from the known languag" +
+                            "es list", language, newProficiencyLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 16
+ testRunner.Then(string.Format("The proficiency level for \'{0}\' language should be updated to \'{1}\'", language, newProficiencyLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("3. Verify user is able to delete an existing known language")]
+        [NUnit.Framework.TestCaseAttribute("Spanish", "Conversational", null)]
+        public void _3_VerifyUserIsAbleToDeleteAnExistingKnownLanguage(string language, string proficiencyLevel, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("language", language);
+            argumentsOfScenario.Add("proficiency level", proficiencyLevel);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("3. Verify user is able to delete an existing known language", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 22
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -130,30 +167,36 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
+#line 23
+ testRunner.Given("User logs into Mars application", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
 #line 24
-testRunner.Given("I navigate to Language", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.When(string.Format("User adds \'{0}\' language with \'{1}\' proficiency level into the known languages li" +
+                            "st", language, proficiencyLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 25
-testRunner.When(string.Format("I edit the second \'{0}\' with new \'{1}\'", languageKnown, myLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.And(string.Format("The User deletes the language \'{0}\'", language), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 26
-testRunner.Then(string.Format("The \'{0}\' should be updated", languageKnown), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then(string.Format("The language \'{0}\' should not be visible on the profile page", language), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("3- Delete an existing Language")]
-        [NUnit.Framework.TestCaseAttribute("German", null)]
-        [NUnit.Framework.TestCaseAttribute("English", null)]
-        public void _3_DeleteAnExistingLanguage(string languageKnown, string[] exampleTags)
+        [NUnit.Framework.DescriptionAttribute("4. Verify user attempting to add a language already present in the known language" +
+            "s list")]
+        [NUnit.Framework.TestCaseAttribute("Spanish", "Conversational", null)]
+        public void _4_VerifyUserAttemptingToAddALanguageAlreadyPresentInTheKnownLanguagesList(string language, string proficiencyLevel, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            argumentsOfScenario.Add("LanguageKnown", languageKnown);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("3- Delete an existing Language", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 35
+            argumentsOfScenario.Add("language", language);
+            argumentsOfScenario.Add("proficiency level", proficiencyLevel);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("4. Verify user attempting to add a language already present in the known language" +
+                    "s list", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 32
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -163,14 +206,201 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 37
-testRunner.Given("I navigate to Language", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 33
+ testRunner.Given("User logs into Mars application", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 38
-testRunner.When(string.Format("I delete an existing \'{0}\'", languageKnown), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 34
+ testRunner.When(string.Format("User adds \'{0}\' language with \'{1}\' proficiency level into the known languages li" +
+                            "st", language, proficiencyLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 39
-testRunner.Then(string.Format("the existing \'{0}\' should be deleted", languageKnown), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 35
+ testRunner.And(string.Format("The user adds language \'{0}\' with \'{1}\' proficiency level that is already display" +
+                            "ed in their known languages list", language, proficiencyLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 36
+ testRunner.Then(string.Format("The language \'{0}\' should not be duplicated in the known languages list", language), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("5. Verify that the system rejects saving an empty language field with the chosen " +
+            "proficiency level in the language profile section")]
+        [NUnit.Framework.TestCaseAttribute("", "Conversational", null)]
+        public void _5_VerifyThatTheSystemRejectsSavingAnEmptyLanguageFieldWithTheChosenProficiencyLevelInTheLanguageProfileSection(string language, string proficiencyLevel, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("language", language);
+            argumentsOfScenario.Add("proficiency level", proficiencyLevel);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("5. Verify that the system rejects saving an empty language field with the chosen " +
+                    "proficiency level in the language profile section", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 42
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 43
+ testRunner.Given("User logs into Mars application", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 44
+ testRunner.When(string.Format("User adds \'{0}\' language with \'{1}\' proficiency level into the known languages li" +
+                            "st", language, proficiencyLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 45
+ testRunner.Then(string.Format("The system should reject showcasing an empty \'{0}\' and display an error message", language), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("6. Verify user tries to add a language with the same name but different cases")]
+        [NUnit.Framework.TestCaseAttribute("German", "Basic", "GErMAN", null)]
+        public void _6_VerifyUserTriesToAddALanguageWithTheSameNameButDifferentCases(string language, string proficiencyLevel, string newLanguage, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("language", language);
+            argumentsOfScenario.Add("proficiency level", proficiencyLevel);
+            argumentsOfScenario.Add("new language", newLanguage);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("6. Verify user tries to add a language with the same name but different cases", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 51
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 52
+ testRunner.Given("User logs into Mars application", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 53
+ testRunner.When(string.Format("User adds \'{0}\' language with \'{1}\' proficiency level into the known languages li" +
+                            "st", language, proficiencyLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 54
+ testRunner.And(string.Format("The user adds \'{0}\' language with \'{1}\' proficiency level with the same name but " +
+                            "different cases", newLanguage, proficiencyLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 55
+ testRunner.Then(string.Format("The system should accept the same language \'{0}\' with \'{1}\' proficiency level wit" +
+                            "h different case", language, proficiencyLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("7. Verify that the user attempts to add a language field containing only numbers")]
+        [NUnit.Framework.TestCaseAttribute("35642", "Basic", null)]
+        public void _7_VerifyThatTheUserAttemptsToAddALanguageFieldContainingOnlyNumbers(string language, string proficiencyLevel, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("language", language);
+            argumentsOfScenario.Add("proficiency level", proficiencyLevel);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("7. Verify that the user attempts to add a language field containing only numbers", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 61
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 62
+ testRunner.Given("User logs into Mars application", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 63
+ testRunner.When(string.Format("The user adds \'{0}\' language with \'{1}\' proficiency level with language field con" +
+                            "taining only numbers", language, proficiencyLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 64
+ testRunner.Then(string.Format("The \'{0}\' language with \'{1}\' proficiency level should appear in the known langua" +
+                            "ges list", language, proficiencyLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("8. Verify that the user attempts to add a language field containing special chara" +
+            "cters")]
+        [NUnit.Framework.TestCaseAttribute("%$&(^@+%!", "Basic", null)]
+        public void _8_VerifyThatTheUserAttemptsToAddALanguageFieldContainingSpecialCharacters(string language, string proficiencyLevel, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("language", language);
+            argumentsOfScenario.Add("proficiency level", proficiencyLevel);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("8. Verify that the user attempts to add a language field containing special chara" +
+                    "cters", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 70
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 71
+ testRunner.Given("User logs into Mars application", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 72
+ testRunner.When(string.Format("The user adds \'{0}\' language with \'{1}\' proficiency level with the language field" +
+                            " containing special characters", language, proficiencyLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 73
+ testRunner.Then(string.Format("The \'{0}\' language with \'{1}\' proficiency level should appear in the known langua" +
+                            "ges list", language, proficiencyLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("9. Verify that the system rejects saving an invalid proficiency level")]
+        [NUnit.Framework.TestCaseAttribute("Urud", "", null)]
+        public void _9_VerifyThatTheSystemRejectsSavingAnInvalidProficiencyLevel(string language, string proficiencyLevel, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("language", language);
+            argumentsOfScenario.Add("proficiency level", proficiencyLevel);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("9. Verify that the system rejects saving an invalid proficiency level", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 79
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 80
+ testRunner.Given("User logs into Mars application", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 81
+ testRunner.When(string.Format("The user adds \'{0}\' language with \'{1}\' but refrains from selecting any proficien" +
+                            "cy level and leaves it at the default", language, proficiencyLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 82
+ testRunner.Then(string.Format("The system should reject showcasing an empty \'{0}\' and display an error message", proficiencyLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
